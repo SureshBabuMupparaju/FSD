@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <h1>Student Tasks</h1>
+    <form action="/courses/:courseId/tasks" method="POST">
+      <label for="course-id">Course ID:</label>
+      <input type="text" id="course-id" name="course-id">
+      <br>
+      <label for="task-name">Task Name:</label>
+      <input type="text" id="task-name" name="task-name">
+      <br>
+      <label for="due-date">Due Date:</label>
+      <input type="date" id="due-date" name="due-date">
+      <br>
+      <label for="details">Details:</label>
+      <textarea id="details" name="details"></textarea>
+      <br>
+      <input type="submit" value="Submit">
+    </form>
+    <br>
+    <div id="tasks"></div>
+
+    <script>
+        console.log("hello");
+        fetch('http://localhost:3800/courses')
+        .then((res)=>res.json())
+        .then((data)=>{
+            console.log('fetched data',data);
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML='';
+            //populate data inside tbody
+            data.forEach(task=>{
+                const row=document.createElement('tr');
+                row.innerHTML=`
+                <td>${task.task-name}</td>
+                <td>${task.due-date}</td>
+                <td>${task.details}</td>
+                <td>${task.courseId}</td>
+               
+                
+                
+                `
+                
+            })
+        })
+        .catch((e)=>console.log(e));
+    
+    </script>
+</body>
+</html>
